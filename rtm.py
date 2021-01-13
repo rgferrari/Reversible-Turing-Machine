@@ -129,7 +129,10 @@ class Rtm:
 
             self.execute(self.transitions[transition_index], backward=True)
 
+            print(self.tapes['input'], "\t", self.tapes['history'][self.heads['history']])
+
             # Avança para o próximo estado
+            self.tapes['history'][self.heads['history']] = 'B'
             self.heads['history'] -= 1
 
     def forward_computation(self):
@@ -141,12 +144,14 @@ class Rtm:
 
             current_symbol = self.tapes['input'][self.heads['input']]
             
-            transition, index = self.get_transition(self.current_state, current_symbol)
+            transition, transition_index = self.get_transition(self.current_state, current_symbol)
 
             # Salva a transição
-            self.tapes['history'].append(index)
+            self.tapes['history'].append(transition_index)
 
             self.execute(transition)
+
+            print(self.tapes['input'], "\t", transition_index)
 
     def copy_output(self):
         # Salva o output na fita output
@@ -154,12 +159,17 @@ class Rtm:
 
     def run(self):
         # Fase 1
+        print("Computing...")
+        print("Input Tape", "\t\t\t", "Transition Index")
         self.forward_computation()
 
         # Fase 2
+        print("Copying from input to output...")
         self.copy_output()
 
         # Fase 3
+        print("Retracing...")
+        print("Input Tape", "\t\t\t", "Transition Index")
         self.retraced_computation()
 
         print('Input: ', self.tapes['input'])

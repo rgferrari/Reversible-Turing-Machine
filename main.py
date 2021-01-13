@@ -36,7 +36,3 @@ machine.run()
 # for transition in machine.transitions:
 #     print(transition)
 # print(machine.tapes['input'])
-
-
-
-    
