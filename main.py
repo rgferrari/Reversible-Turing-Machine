@@ -32,10 +32,9 @@ machine.run()
 # print(machine.states)
 # print(machine.current_state)
 # print(machine.final_state)
-# print("Transitions:\n-------")
+# print("Transitions:")
 # for transition in machine.transitions:
-#     transition._print()
-#     print("-------")
+#     print(transition)
 # print(machine.tapes['input'])
 
 
